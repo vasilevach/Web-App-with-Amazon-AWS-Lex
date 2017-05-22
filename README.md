@@ -2,7 +2,7 @@
 Based on [Simple React Webpack Babel Starter Kit](https://github.com/alicoding/react-webpack-babel)
 
 ### Read the blog post
-
+[Blog post](http://www.siili.com/news/creating-voice-recognition-bot-web-app-amazon-aws-lex)
 
 ### To run
 
