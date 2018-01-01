@@ -15,6 +15,16 @@ loaders.push({
   exclude: ['node_modules']
 });
 
+loaders.push({
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+                presets: ['react', 'es2015']
+            }
+        }
+    );
+
 module.exports = {
   entry: [
     'react-hot-loader/patch',
@@ -27,10 +37,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.scss']
   },
   module: {
-    loaders
+   loaders
   },
   devServer: {
     contentBase: "./public",
@@ -46,6 +56,7 @@ module.exports = {
     host: HOST
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({

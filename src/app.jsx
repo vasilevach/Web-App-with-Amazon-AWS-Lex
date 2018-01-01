@@ -11,7 +11,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Lex test</h1>
+        <h1>Order Flowers Lex</h1>
         <AudioRecorder/>
       </div>
     )

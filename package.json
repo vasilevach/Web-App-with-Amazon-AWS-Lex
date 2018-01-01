@@ -22,7 +22,8 @@
     "react-audio-recorder": "^2.0.0",
     "react-dom": "15.4.2",
     "react-recorder": "^1.0.0",
-    "sass-loader": "^6.0.2"
+    "sass-loader": "^6.0.2",
+    "react-bootstrap": "0.31.5"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 
 export default class AudioRecorder extends React.Component {
 
@@ -18,7 +19,7 @@ export default class AudioRecorder extends React.Component {
         this.lexAudio = {};
 
       //configurations
-        var AWSConfig = new AWS.CognitoIdentityCredentials({IdentityPoolId:'us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'});
+        var AWSConfig = new AWS.CognitoIdentityCredentials({IdentityPoolId:'us-east-1:29f91578-56e6-4e0a-8e00-6944c2d9d70b'});
         var LexConfig = new AWS.Config({
             credentials: AWSConfig,
             region: 'us-east-1',
@@ -33,7 +34,11 @@ export default class AudioRecorder extends React.Component {
 
       this.record = this.record.bind(this);
       this.stop = this.stop.bind(this);
+      this.action = this.action.bind(this);
       this.sendToServer = this.sendToServer.bind(this);
+      this.state = {
+        recorder: 'idle'
+      };
 
     }
 
@@ -94,10 +99,24 @@ export default class AudioRecorder extends React.Component {
 
     record() {
         this.recorder.start();
+        this.setState({
+            recorder: 'recording'
+        });
     }
 
     stop() {
         this.recorder.stop();
+        this.setState({
+            recorder: 'idle'
+        });
+    }
+
+    action(){
+        console.log(this.state.recorder);
+        switch(this.state.recorder){
+            case 'idle': this.record(); break;
+            case 'recording': this.stop(); break;
+        }
     }
 
     reSample(audioBuffer, targetSampleRate, onComplete) {
@@ -144,6 +163,7 @@ export default class AudioRecorder extends React.Component {
                     var url = URL.createObjectURL(blob);
                     _this.lexAudio.src = url;
                     _this.lexAudio.play();
+                    _this.setState({'lexResponseText':data.message});
                 }
         });
     }
@@ -151,10 +171,22 @@ export default class AudioRecorder extends React.Component {
     render() {
         return (
           <div>
-            <span onClick={this.record} className={this.state.recordStyle}>Record</span>
-            <span onClick={this.stop}>Stop</span>
+            
+            <div className="alert alert-info">
+              Click to the button below to record your order for flowers. When finish recording click again to send the request to Lex/Alexa.
+            </div>
+            <Button onClick={this.action} bsStyle={this.state.recorder=='idle'?"primary":'danger'}>{this.state.recorder=='idle'?"Click to record order":"Click to stop and send request to Alexa"}</Button>
+            <h2>User Speech</h2>
             <audio id="user-speech" controls>No support of audio tag</audio>
-            <audio id="lex-speech" controls>No support of audio tag</audio>
+            <h2>Alexa Speech</h2>
+            <div>
+                {this.state.lexResponseText}
+            </div>
+            <br/>
+            <div>
+                <audio id="lex-speech" controls>No support of audio tag</audio>
+            </div>
+            
           </div>
         )
     }
