@@ -19,7 +19,7 @@ export default class AudioRecorder extends React.Component {
         this.lexAudio = {};
 
       //configurations
-        var AWSConfig = new AWS.CognitoIdentityCredentials({IdentityPoolId:'us-east-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'});
+        var AWSConfig = new AWS.CognitoIdentityCredentials({IdentityPoolId:'us-east-1:29f91578-56e6-4e0a-8e00-6944c2d9d70b'});
         var LexConfig = new AWS.Config({
             credentials: AWSConfig,
             region: 'us-east-1',
